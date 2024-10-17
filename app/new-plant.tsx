@@ -1,20 +1,17 @@
 import { useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  TextInput,
-  Alert,
-  View,
-  KeyboardAvoidingView,
-} from "react-native";
+import { Text, StyleSheet, TextInput, Alert, View } from "react-native";
 import { theme } from "@/theme";
 import PlantImage from "@/components/PlantImage";
 import CustomButton from "@/components/CustomButton";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { usePlantStore } from "@/store/plantsStore";
+import { router } from "expo-router";
 
-export default function NewScreen() {
+export default function NewPlant() {
   const [name, setName] = useState<string>();
   const [days, setDays] = useState<string>();
+
+  const addPlant = usePlantStore((state) => state.addPlant);
 
   const handleSubmit = () => {
     if (!name) {
@@ -24,18 +21,18 @@ export default function NewScreen() {
     if (!days) {
       return Alert.alert(
         "Validation Error",
-        `How often does ${name} need to be watered?`
+        `How often does ${name} need to be watered?`,
       );
     }
 
     if (Number.isNaN(Number(days))) {
       return Alert.alert(
         "Validation Error",
-        "Watering frequency must be a be a number"
+        "Watering frequency must be a be a number",
       );
     }
-
-    console.log("Adding plant", name, days);
+    addPlant(name, +days);
+    router.navigate("/");
   };
 
   return (
