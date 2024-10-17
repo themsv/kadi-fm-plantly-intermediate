@@ -2,11 +2,11 @@ import { Redirect, Tabs } from "expo-router";
 import Entypo from "@expo/vector-icons/Entypo";
 import Feather from "@expo/vector-icons/Feather";
 import { theme } from "@/theme";
-
-const isOnboarded = false;
+import { useUserStore } from "@/store/userStore";
 
 function Layout() {
-  if (!isOnboarded) return <Redirect href="/login" />;
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  if (!isLoggedIn) return <Redirect href="/login" />;
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: theme.colors.green }}>
       <Tabs.Screen
