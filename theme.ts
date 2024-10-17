@@ -1,6 +1,7 @@
 export const theme = {
   colors: {
     white: "#FFF",
+    lightGrey: "#eee",
 
     green: "#29B365",
     leafyGreen: "#206a42",
@@ -12,4 +13,5 @@ export const theme = {
   fontSizes: {},
   radius: {},
   headings: {},
+  icons: {},
 };
