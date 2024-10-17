@@ -1,8 +1,11 @@
-import CustomButton from "@/components/CustomButton";
+import { Text, StyleSheet } from "react-native";
+import { router } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from "expo-status-bar";
+
 import { useUserStore } from "@/store/userStore";
 import { theme } from "@/theme";
-import { router } from "expo-router";
-import { Text, View, StyleSheet } from "react-native";
+import CustomButton from "@/components/CustomButton";
 
 function Login() {
   const toggleLogin = useUserStore((state) => state.toggleLogin);
@@ -11,10 +14,18 @@ function Login() {
     router.replace("/");
   };
   return (
-    <View style={styles.contaier}>
+    <LinearGradient
+      style={styles.contaier}
+      colors={[
+        theme.colors.appleGreen,
+        theme.colors.limeGreen,
+        theme.colors.green,
+      ]}
+    >
       <Text>I am Login Screen</Text>
       <CustomButton onPress={handlePress} title="Login" />
-    </View>
+      <StatusBar style="light" />
+    </LinearGradient>
   );
 }
 
