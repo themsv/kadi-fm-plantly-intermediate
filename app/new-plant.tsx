@@ -1,15 +1,24 @@
 import { useState } from "react";
-import { Text, StyleSheet, TextInput, Alert, View } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  TextInput,
+  Alert,
+  View,
+  TouchableOpacity,
+} from "react-native";
+import { router } from "expo-router";
+import * as ImagePicker from "expo-image-picker";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { theme } from "@/theme";
 import PlantImage from "@/components/PlantImage";
 import CustomButton from "@/components/CustomButton";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { usePlantStore } from "@/store/plantsStore";
-import { router } from "expo-router";
 
 export default function NewPlant() {
   const [name, setName] = useState<string>();
   const [days, setDays] = useState<string>();
+  const [imageUri, setImageUri] = useState<string>();
 
   const addPlant = usePlantStore((state) => state.addPlant);
 
@@ -21,18 +30,28 @@ export default function NewPlant() {
     if (!days) {
       return Alert.alert(
         "Validation Error",
-        `How often does ${name} need to be watered?`,
+        `How often does ${name} need to be watered?`
       );
     }
 
     if (Number.isNaN(Number(days))) {
       return Alert.alert(
         "Validation Error",
-        "Watering frequency must be a be a number",
+        "Watering frequency must be a be a number"
       );
     }
     addPlant(name, +days);
     router.navigate("/");
+  };
+
+  const handleChooseImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+    if (!result.canceled) setImageUri(result.assets[0].uri);
   };
 
   return (
@@ -42,7 +61,9 @@ export default function NewPlant() {
       keyboardShouldPersistTaps="handled"
     >
       <View style={styles.centered}>
-        <PlantImage />
+        <TouchableOpacity activeOpacity={0.8} onPress={handleChooseImage}>
+          <PlantImage imageUri={imageUri} />
+        </TouchableOpacity>
       </View>
       <Text style={styles.label}>Name</Text>
       <TextInput

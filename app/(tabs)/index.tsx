@@ -19,7 +19,7 @@ export default function App() {
         <CustomButton
           title="Add your first plant"
           onPress={() => {
-            router.navigate("/new");
+            router.navigate("/new-plant");
           }}
         />
       }
