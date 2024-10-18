@@ -1,19 +1,24 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { theme } from "@/theme";
 import PlantImage from "./PlantImage";
 import { PlantType } from "@/store/plantsStore";
+import { Link } from "expo-router";
 
 function PlantCard({ plant }: { plant: PlantType }) {
   return (
-    <View style={styles.plantCard}>
-      <PlantImage size={100} imageUri={plant.imageUri} />
-      <View style={styles.details}>
-        <Text style={styles.plantName}>{plant.name}</Text>
-        <Text style={styles.subtitle}>
-          Water every {plant.wateringFrequencyDays} days
-        </Text>
-      </View>
-    </View>
+    <Link href={`plants/${plant.id}`} asChild>
+      <Pressable>
+        <View style={styles.plantCard}>
+          <PlantImage size={100} imageUri={plant.imageUri} />
+          <View style={styles.details}>
+            <Text style={styles.plantName}>{plant.name}</Text>
+            <Text style={styles.subtitle}>
+              Water every {plant.wateringFrequencyDays} days
+            </Text>
+          </View>
+        </View>
+      </Pressable>
+    </Link>
   );
 }
 export default PlantCard;
