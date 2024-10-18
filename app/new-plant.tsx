@@ -30,17 +30,17 @@ export default function NewPlant() {
     if (!days) {
       return Alert.alert(
         "Validation Error",
-        `How often does ${name} need to be watered?`
+        `How often does ${name} need to be watered?`,
       );
     }
 
     if (Number.isNaN(Number(days))) {
       return Alert.alert(
         "Validation Error",
-        "Watering frequency must be a be a number"
+        "Watering frequency must be a be a number",
       );
     }
-    addPlant(name, +days);
+    addPlant(name, +days, imageUri);
     router.navigate("/");
   };
 

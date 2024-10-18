@@ -6,7 +6,7 @@ import { PlantType } from "@/store/plantsStore";
 function PlantCard({ plant }: { plant: PlantType }) {
   return (
     <View style={styles.plantCard}>
-      <PlantImage size={100} />
+      <PlantImage size={100} imageUri={plant.imageUri} />
       <View style={styles.details}>
         <Text style={styles.plantName}>{plant.name}</Text>
         <Text style={styles.subtitle}>
